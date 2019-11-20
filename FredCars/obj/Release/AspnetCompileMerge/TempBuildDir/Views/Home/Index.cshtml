@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FredCars.Domain.Entities.Car>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+
+
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="photo-body">
+            <div class="photo-container">
+                <div class="photo-container-inner">
+                    <p id="photo-head"> @item.Manufacturer.Name - @item.Name</p>
+                    <a href='@Url.Action("Details", "Home", new { id = item.CarID })'>
+                        <img class="Image" src="@Url.Content(@item.ImagePath)" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Search Your Favourite Car Brand</div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("CarSearch", "Home",
+new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET",
+    OnFailure = "searchFailed",
+    LoadingElementId = "ajax-loader",
+    UpdateTargetId = "searchresults",
+}))
+        {
+            <input type="text" name="q" />
+            <input type="submit" value="search" />
+            <img id="ajax-loader"
+                 src="@Url.Content("~/img/loading.gif")"
+                 style="display:none" />
+        }
+        <div id="searchresults"></div>
+    </div>
+</div>
+
+
+

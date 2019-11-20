@@ -1,0 +1,55 @@
+﻿@model FredCars.Domain.Entities.Car
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="Details-container">
+    <div>
+        <div class="left-side">
+            <img class="Image-Details" src="@Url.Content(@Model.ImagePath)" /> 
+
+        </div>
+        <div class="right-side">
+            <p>Manufacturer : @Model.Manufacturer.Name</p>
+            <p>Car Model : @Model.Name</p>
+            <p>Car Price : @Model.Price.ToString("c")</p>
+            <p> This Car is Rated  <span>@Model.Rating</span></p>
+        </div>  
+    </div>
+</div>
+
+<div class="ajax-flex">
+    <div id="update">
+        @Ajax.ActionLink("Receive Update!",
+            "Update",
+            null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "update",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET"
+        },
+        new { @class = "btn btn-primary" })
+    </div>
+
+
+    <div id="order">
+        @Ajax.ActionLink("Order For Car!",
+            "Order",
+            null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "order",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET"
+        },
+        new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+
+
